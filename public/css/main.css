@@ -1,0 +1,148 @@
+*{
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+		}
+			.head{
+				height: 60px;
+				width:100%;
+				background-color: gainsboro;
+			}
+			.head ul{
+				display: flex;
+				list-style: none;
+				flex-direction: row;
+				margin-right: 300px;
+			}
+			.head ul li{
+				padding: 1.5rem;
+				width: 100px;
+				text-align:center ;
+				font-size: 14px;
+				color: #000000;
+			}
+			.head ul li i{
+				color: black;
+			}
+			.head ul a{
+				color: black;
+				text-decoration: none;
+			}
+			.head ul li a,.head ul li a:visited,.head ul li a:default,.head ul li a:link{
+				text-decoration: none;
+				color: black;
+				font-size: 14px;
+			}
+			.head ul li a:hover{
+				display: block;
+				background-color: rgb(195,195,195) ;
+			}
+			.tagborder{
+				border-radius: 10px 10px;
+				margin: 100px -10px -10px -10px;
+				padding: 10px;
+				height: 200px;
+			}
+						.tagborder h1{
+				display: block;
+				height: 40px;
+			}
+			h1> a {
+			  position: relative;
+			  text-decoration: none;
+			}
+			h1>a:hover{
+				text-decoration: none;
+			}
+			h1>a:before{
+				content: "";
+				display: block;
+				border-top:2px solid black ;
+				width: 100%;
+				transform: scaleX(0);
+				position: absolute;
+  				transition: all 0.3s ease-in-out 0s;
+  				bottom: 0;
+  				height: 4px;
+			}
+			h1>a:hover:before{
+				visibility: visible;
+  				transform: scaleX(1);
+			}
+			.detalis{
+				font-size: 10px;
+				padding-left: 30px;
+			}
+			.sidebarcontroler{
+				position: fixed;
+				right: 50px;
+				bottom:50px;
+				z-index: 999;
+			}
+			.sidebarcontroler span{
+				font-size: 25px;
+			}
+			.mainsidebar{
+				display: none;
+				width: 0px;
+				background-color: dimgrey;
+			    position: absolute;
+			    top: 0px;
+			    bottom: 0px;
+			    right: 0px;
+			}
+			.userinfo{
+				height: 500px;
+				width: 100%;
+			}
+			.userinfo p{
+				margin-top: 15px;
+				font-size:20px;
+				color: white;
+				line-height: -2rem;
+				text-align: center;
+			}
+			.userinfo p:last-child{
+				color: gray;
+				font-size: 16px;
+				width: 240px;
+				margin-left: 80px;
+				height: 40px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.headportrait{
+				margin-left:125px ;
+				margin-top: 125px;
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+				background-image: url(../img/1.gif);
+				overflow: hidden;
+				background-size:cover ;
+			}
+			.item-count{
+				display: flex;
+				margin-left: 80px;
+			}
+			.item-count div{
+				text-align: center;
+				width: 80px;
+				border-right:1px solid wheat;
+			}
+			.item-count a{
+				color: #999;
+				display: flex;
+				flex-direction: column;
+			}
+			.item-count a:hover{
+				text-decoration: none;
+				color: wheat;
+				cursor:pointer
+			}
+			.item-count a:visited,.item-count a:link,.item-count a:active{
+				text-decoration: none;
+			}
+			.item-count div:last-child{
+				border-right: none;
+			}
