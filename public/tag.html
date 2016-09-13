@@ -4,82 +4,145 @@
 		<meta charset="UTF-8">
 		<title>tag</title>
 		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
 		<style type="text/css">
 		*{
 			padding: 0;
 			margin: 0;
+			overflow: hidden;
 		}
 			.head{
 				height: 60px;
 				width:100%;
-				background-color: #1BBC9B;
+				background-color: dimgrey;
 			}
 			.head ul{
 				display: flex;
 				list-style: none;
 				flex-direction: row;
+				margin-right: 300px;
 			}
 			.head ul li{
 				padding: 1.5rem;
-				width: 200px;
+				width: 100px;
 				text-align:center ;
 				font-size: 14px;
-				
+				color: #000000;
+			}
+			.head ul li i{
+				color: black;
+			}
+			.head ul a{
+				color: black;
+				text-decoration: none;
 			}
 			.head ul li a,.head ul li a:visited,.head ul li a:default,.head ul li a:link{
 				text-decoration: none;
 				color: black;
+				font-size: 14px;
 			}
 			.head ul li a:hover{
-				color: wheat;
+				display: block;
+				background-color: grey;
 			}
 			.tagborder{
-				border:black solid 1px;
 				border-radius: 10px 10px;
-				margin: -10px;
+				margin: 100px -10px -10px -10px;
 				padding: 10px;
 				height: 200px;
 			}
-			.tagborder:hover{
-				 box-shadow:0 0 10px #0CC;  
+			.detalis{
+				font-size: 10px;
+				padding-left: 30px;
+			}
+			.sidebarcontroler{
+				position: fixed;
+				right: 50px;
+				bottom:50px;
+				z-index: 999;
+			}
+			.sidebarcontroler span{
+				font-size: 25px;
+			}
+			.mainsidebar{
+				display: none;
+				width: 0px;
+				background-color: dimgrey;
+			    position: absolute;
+			    top: 0px;
+			    bottom: 0px;
+			    right: 0px;
 			}
 		</style>
 	</head>
 	<body>
+		<div id="outside">
 <div class="head">
 	<div class="container">
-		<ul>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>	
+		<div style="position: absolute;font-size: 3rem;line-height: 2;">sb-blog</div>
+		<div style="position: relative;line-height:2;left: 50%;">
+			<ul>
+			<li><a href="#"><i class="fa fa-home"></i>首页</a></li>
+			<li><a href="#"><i class="fa fa-user"></i>关于</a></li>
+			<li><a href="#"><i class="fa fa-paperclip"></i>归档</a></li>
+			<li><a href="#"><i class="fa fa-tags"></i>标签</a></li>
+			<li><a href="#"><i class="fa fa-search"></i>搜索</a></li>	
 		</ul>
+		</div>
 	</div>
 </div>
 		<!--导航-->
 		<div class="container">
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
-					<div class="jumbotron">
-						<h1>MDZZ</h1>
-						<p>writen by XXX&amp;XXX</p>
-						<p>
-							<a class="btn btn-primary btn-lg" href="#" role="button">了解更多</a>
-						</p>
-					</div>
-					<!--巨幕-->
 					<div class="container-fluid">
-						<div class="tagborder">
-							<a href="#" >
-								<h2>文章名</h2>
-								<p>详情</p>
+						<div class="tagborder"><h1>
+							<a href="javascript:void(0)" >
+								{{半岛铁盒}}
 							</a>
+							</h1>
+							<div class="detalis">{{date}}|{{time}}|{{commentnumber}}</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="sidebarcontroler">
+			<span class="fa fa-navicon"></span>
+		</div>
+</div>
+		<div class="mainsidebar">
+		</div>
+		<script type="text/javascript">
+		
+			var timer=null;
+			var mainsidebar =document.querySelector(".mainsidebar");
+				document.querySelector(".sidebarcontroler").onclick=function(){
+					clearInterval(timer);
+					if(document.querySelector(".fa-navicon")){
+				mainsidebar.style.display='block';
+				timer=setInterval(function(){
+					if(mainsidebar.offsetWidth>289){
+					clearInterval(timer);
+					document.querySelector(".fa-navicon").className="fa fa-arrow-right";
+					timer=null;
+				}
+					mainsidebar.style.width=mainsidebar.offsetWidth+10+'px';
+					document.getElementById('outside').style.paddingRight=mainsidebar.offsetWidth+'px';
+				},30)			
+			}else if(document.querySelector(".fa-arrow-right")){
+					timer=setInterval(function(){
+					if(mainsidebar.offsetWidth<=0){
+					document.querySelector(".fa-arrow-right").className="fa fa-navicon";
+					mainsidebar.style.display='none';
+					clearInterval(timer);
+					timer=null;
+				}
+					mainsidebar.style.width=mainsidebar.offsetWidth-10+'px';
+					document.getElementById('outside').style.paddingRight=mainsidebar.offsetWidth+'px';
+				},30)			
+				}}
+//滑入划出动画
+		</script>
 	</body>
-
 </html>
