@@ -9,10 +9,10 @@ package com.yang.blog.model;
  * @version: V1.0  
  */
 public class Comment {
-	private int comment_id;
+	private Integer comment_id;
 	private String content;
-	private int artic_id;
-	private int user_id;
+	private Integer artic_id;
+	private Integer user_id;
 	/**
 	 * @return the comment_id
 	 */

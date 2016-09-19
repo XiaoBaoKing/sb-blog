@@ -13,13 +13,13 @@ import java.util.Date;
  */
 public class User extends BaseDao{
 
-	private int user_id;
+	private Integer user_id;
 	private String userName;
 	private String passWord;
 	private String Email;
 	private Date lastLoginTime;
 	private Date createTime;
-	private int group_Id;
+	private Integer group_Id;
 
 	/**
 	 * @return the user_id

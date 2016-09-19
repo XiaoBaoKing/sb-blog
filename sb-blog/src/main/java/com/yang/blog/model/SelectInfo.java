@@ -9,7 +9,7 @@ package com.yang.blog.model;
  * @version: V1.0  
  */
 public class SelectInfo {
-	private int selectInfo_id;
+	private Integer selectInfo_id;
 	private String name;
 	/**
 	 * @return the selectInfo_id

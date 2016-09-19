@@ -12,7 +12,7 @@ import java.util.List;
  * @version: V1.0
  */
 public class Group extends BaseDao {
-	private int group_Id;
+	private Integer group_Id;
 	private String name;
 	private List<User> user;
 

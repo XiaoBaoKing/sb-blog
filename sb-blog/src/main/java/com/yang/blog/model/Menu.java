@@ -11,9 +11,9 @@ package com.yang.blog.model;
  */
 public class Menu extends BaseDao {
 	private String name;
-	private int menu_id;
-	private int parentId;
-	private int level;
+	private Integer menu_id;
+	private Integer parentId;
+	private Integer level;
 
 	/**
 	 * @return the name

@@ -14,11 +14,5 @@ import com.yang.blog.model.User;
  * @version: V1.0
  */
 public interface IUserDao {
-	public int create();
 
-	public int save(User user);
-
-	public User getUser(User user);
-
-	public List<User> getAll();
 }

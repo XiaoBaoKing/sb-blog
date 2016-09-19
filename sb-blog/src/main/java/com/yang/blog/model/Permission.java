@@ -12,7 +12,7 @@ import java.util.List;
  * @version: V1.0
  */
 public class Permission extends BaseDao{
-	private int permission_id;
+	private Integer permission_id;
 	private String name;
 	private List<Menu> menu;
 	/**

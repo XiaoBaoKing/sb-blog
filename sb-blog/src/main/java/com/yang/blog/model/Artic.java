@@ -13,15 +13,15 @@ import java.util.List;
  * @version: V1.0
  */
 public class Artic extends BaseDao {
-	private int artic_id;
+	private Integer artic_id;
 	private String title;
 	private String url;
 	private List<Tag> tag;
 	private Date lastModifyTime;
 	private Date createTime;
-	private int user_id;
-	private int read_count;
-	private int comment_count;
+	private Integer user_id;
+	private Integer read_count;
+	private Integer comment_count;
 	private List<SelectInfo> selectInfo;
 
 	/**

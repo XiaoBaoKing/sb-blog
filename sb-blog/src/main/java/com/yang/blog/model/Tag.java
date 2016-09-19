@@ -9,9 +9,9 @@ package com.yang.blog.model;
  * @version: V1.0  
  */
 public class Tag {
-	private int tag_id;
+	private Integer tag_id;
 	private String name;
-	private int artic_id;
+	private Integer artic_id;
 	/**
 	 * @return the tag_id
 	 */
