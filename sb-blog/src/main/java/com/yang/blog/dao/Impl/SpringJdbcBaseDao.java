@@ -2,16 +2,16 @@ package com.yang.blog.dao.Impl;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.yang.blog.annotation.Id;
 import com.yang.blog.dao.IBaseDao;
+import com.yang.blog.utils.common;
 
 /**
  * @Title: SpringJdbcBaseDao.java
@@ -23,39 +23,59 @@ import com.yang.blog.dao.IBaseDao;
  * @version: V1.0
  */
 public abstract class SpringJdbcBaseDao<M extends Serializable, PK extends Serializable> implements IBaseDao<M, PK> {
+	private static final String INSERT_SQL = "INSERT INTO TABLE(TABLE_VALUE) VALUES(VALUE)";
+	private static final String SELECT_SQL = "SELECT * FROM TABLE";
+	private static final String SELECT_PRARM_SQL = "SELECT * FROM TABLE WHERE PARAM";
+	private static final String UPDATE_SQL = "UPDATE TABLE SET VALUE WHERE PARAM";
+	private static final String DELETE_SQL = "DELETE FROM TABLE WHERE PARAM";
 
 	private Class clazz = this.getClass();
 
 	private JdbcTemplate jdbcTemplateObject;
-	private  final Map<String, Object> sqlParam=new HashMap<>();
-	
-	private  void getSQLparam(){
+
+	private Map getSQLparam() throws Exception {
+		Map<String, Object> sqlParam = new HashMap<>();
 		Field[] field = clazz.getDeclaredFields();
-		Object[] obj = new Object[field.length];
-		String valuesName = "", values = "",updateValues="";
+		List<Object> obj = new ArrayList<>();
+		String valuesName = "", values = "", updateValues = "SET ", idName = "";
+		Integer id = 0;
 		for (int i = 0; i < field.length; i++) {
-			obj[i] = this.getter(this, "get" + field[i].getName());
-			if (!field[i].getName().contains("id")) {
-				valuesName += i == field.length - 1 ? field[i].getName() + "," : field[i].getName();
-				values += i == field.length - 1 ? "?," : "?";
+			field[i].setAccessible(true);
+			if (field[i].get(this) != null) {
+				if (field[i].isAnnotationPresent(Id.class)) {
+					id = field[i].getInt(this);
+					idName = field[i].getName();
+				}
+				valuesName += field[i].getName() + ",";
+				values += "?,";
+				updateValues += field[i].getName() + "=?,";
+				obj.add(field[i].get(this));
 			}
 		}
+		valuesName = common.substrStringExceptLastOne(valuesName);
+		values = common.substrStringExceptLastOne(values);
+		updateValues = common.substrStringExceptLastOne(updateValues);
+		obj.add(id);
 		sqlParam.put("valuesName", valuesName);
 		sqlParam.put("values", values);
 		sqlParam.put("updateValues", updateValues);
 		sqlParam.put("objParam", obj);
+		sqlParam.put("idName", idName);
+		return sqlParam;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yang.blog.dao.IBaseDao#save(java.io.Serializable)
 	 */
 	@Override
-	public void save(M model) {
-		
-
-		String sql = "INSERT INTO " + clazz.getSimpleName() + "(" + valuesName + ")" + "VALUES(" + values + ")";
-		jdbcTemplateObject.update(sql, obj);
+	public void save(M model) throws Exception {
+		Map map = getSQLparam();
+		String sql = INSERT_SQL.replaceAll("TABLE", this.getClass().getSimpleName())
+				.replaceAll("TABLE_VALUE", (String) map.get("valuesName"))
+				.replaceAll("VALUE", (String) map.get("values"));
+		jdbcTemplateObject.update(sql, map.get("objParam"));
 	}
 
 	/*
@@ -75,9 +95,11 @@ public abstract class SpringJdbcBaseDao<M extends Serializable, PK extends Seria
 	 * @see com.yang.blog.dao.IBaseDao#update(java.io.Serializable)
 	 */
 	@Override
-	public void update(M model) {
-		// TODO Auto-generated method stub
-
+	public void update(M model) throws Exception {
+		Map map = getSQLparam();
+		String sql = UPDATE_SQL.replaceAll("TABLE", this.getClass().getSimpleName())
+				.replaceAll("VALUE", (String) map.get("updateValues")).replace("PARAM", (String) map.get("idName")+"=?");
+		jdbcTemplateObject.update(sql, map.get("objParam"));
 	}
 
 	/*
@@ -99,7 +121,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable, PK extends Seria
 	@Override
 	public void delete(PK id) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	/*
@@ -146,21 +168,6 @@ public abstract class SpringJdbcBaseDao<M extends Serializable, PK extends Seria
 		return null;
 	}
 
-	private static Object getter(Object obj, String att) {
-		try {
-			Method method = obj.getClass().getMethod("get" + toUpperCaseFirstOne(att));
-			return method.invoke(obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
-	public static String toUpperCaseFirstOne(String s)
-    {
-        if(Character.isUpperCase(s.charAt(0)))
-            return s;
-        else
-            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
-    }
+	
 
 }

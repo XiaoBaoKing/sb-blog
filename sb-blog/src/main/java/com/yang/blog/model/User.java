@@ -2,6 +2,8 @@ package com.yang.blog.model;
 
 import java.util.Date;
 
+import com.yang.blog.annotation.Id;
+
 /**
  * @Title: user.java
  * @Prject: sb-blog
@@ -11,8 +13,8 @@ import java.util.Date;
  * @date: 2016年9月13日 下午4:23:03
  * @version: V1.0
  */
-public class User extends BaseDao{
-
+public class User extends BaseDao {
+	@Id
 	private Integer user_id;
 	private String userName;
 	private String passWord;
@@ -125,7 +127,5 @@ public class User extends BaseDao{
 	public void setGroup_Id(int group_Id) {
 		this.group_Id = group_Id;
 	}
-	
-
 
 }

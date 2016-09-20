@@ -13,21 +13,21 @@ import java.util.List;
  * @version: V1.0
  */
 public interface IBaseDao<M extends Serializable, PK extends Serializable> {
-	public void save(M model);
+	public void save(M model) throws Exception;
 
-	public void saveOrUpdate(M model);
+	public void saveOrUpdate(M model) throws Exception;
 
-	public void update(M model);
+	public void update(M model) throws Exception;
 
-	public void merge(M model);
+	public void merge(M model) throws Exception;
 
-	public void delete(PK id);
+	public void delete(PK id) throws Exception;
 
-	public M get(PK id);
+	public M get(PK id) throws Exception;
 
-	public int countAll();
+	public int countAll() throws Exception;
 
-	public List<M> listAll();
+	public List<M> listAll() throws Exception;
 
-	public List<M> listAll(int pn, int pageSize);
+	public List<M> listAll(int pn, int pageSize) throws Exception;
 }
