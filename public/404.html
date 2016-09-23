@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>关于</title>
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	</head>
+	<body>
+		<div id="outside">
+<div class="head">
+	<div class="container">
+		<div style="position: absolute;font-size: 3rem;line-height: 2;">sb-blog</div>
+		<div style="position: relative;line-height:2;left: 50%;">
+			<ul>
+			<li><a href="#"><i class="fa fa-home"></i>首页</a></li>
+			<li><a href="#"><i class="fa fa-user"></i>关于</a></li>
+			<li><a href="#"><i class="fa fa-paperclip"></i>归档</a></li>
+			<li><a href="#"><i class="fa fa-tags"></i>标签</a></li>
+			<li><a href="#"><i class="fa fa-search"></i>搜索</a></li>	
+		</ul>
+		</div>
+	</div>
+</div>
+		<!--导航-->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="container-fluid">
+							<canvas id="404" width="700px" height="400px" style="margin-top: 100PX;"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+				<div class="footera">
+			
+		</div>
+		<!--侧栏-->
+		<div class="sidebarcontroler">
+			<span class="fa fa-navicon"></span>
+		</div>
+</div>
+		<div class="mainsidebar">
+			<div class="userinfo">
+				<div class="headportrait"></div>
+				<p>
+					zzq
+				</p>
+				<p>
+					帅，聪明
+				</p>
+			</div>
+				<div class="item-count">
+					<div class="dailycont"><a href="#"><span>文章</span><span>23</span></a></div>
+					<div class="classificationcount"><a href="#"><span>分类</span><span>12</span></a></div>
+					<div class="labelcount"><a href="#"><span>标签</span><span>34</span></a></div>
+				</div>
+		</div>
+		<script src="js/sidebar.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+				function BezierEllipse2(ctx, x, y, a, b)
+		{
+		   var k = .5522848,
+		   ox = a * k, // 水平控制点偏移量
+		   oy = b * k; // 垂直控制点偏移量	
+		   ctx.beginPath();
+		   //从椭圆的左端点开始顺时针绘制四条三次贝塞尔曲线
+		   ctx.moveTo(x - a, y);
+		   ctx.bezierCurveTo(x - a, y - oy, x - ox, y - b, x, y - b);
+		   ctx.bezierCurveTo(x + ox, y - b, x + a, y - oy, x + a, y);
+		   ctx.bezierCurveTo(x + a, y + oy, x + ox, y + b, x, y + b);
+		   ctx.bezierCurveTo(x - ox, y + b, x - a, y + oy, x - a, y);
+		   ctx.closePath();
+		};
+			var c=document.getElementById("404");
+			var ctx=c.getContext("2d");
+			ctx.fillStyle="#4CAE4C";
+			ctx.fillRect(130,50,50,300);
+			ctx.fillStyle="#03A9F4";
+			ctx.fillRect(75,215,150,35)
+           // 画圆,圆心是24,24,半径24,从角度0开始,画到2PI结束,最后一个参数是方向顺时针还是逆时针  
+           	BezierEllipse2(ctx,330,205,75,155)
+        	ctx.fillStyle = '#6164C1';  
+     	    ctx.fill();  
+       	 	BezierEllipse2(ctx,330,205,45,120)
+        	ctx.fillStyle = '#fff';  
+     	    ctx.fill(); 
+        	ctx.fillStyle="#4DA2E6";
+			ctx.fillRect(550,50,50,300);
+			ctx.fillStyle="#815132";
+			ctx.fillRect(485,215,150,35)
+        	ctx.setTransform(1,0,-0.5,1,25,0);
+			ctx.fillStyle="#286090";
+			ctx.fillRect(130,50,50,200);
+			ctx.fillStyle="#F0AD4E";
+			ctx.fillRect(550,50,50,200);
+		</script>
+	</body>
+</html>
