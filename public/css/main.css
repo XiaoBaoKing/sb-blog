@@ -1,12 +1,15 @@
-*{
+			*{
 			padding: 0;
 			margin: 0;
-			overflow: hidden;
-		}
+			overflow-x: hidden;
+			}
+			.outside{
+			}
 			.head{
 				height: 60px;
 				width:100%;
 				background-color: gainsboro;
+				overflow: hidden;
 			}
 			.head ul{
 				display: flex;
@@ -43,9 +46,10 @@
 				padding: 10px;
 				height: 200px;
 			}
-						.tagborder h1{
+			.tagborder h1{
 				display: block;
 				height: 40px;
+				overflow: hidden;
 			}
 			h1> a {
 			  position: relative;
@@ -69,27 +73,48 @@
 				visibility: visible;
   				transform: scaleX(1);
 			}
+			.preview{
+				height: 400px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+
+				white-space:nowrap
+			}
+			.viewmore{
+			}
+			.viewmore a{
+				display: block;
+				margin-bottom: 200px;
+			}
 			.detalis{
 				font-size: 10px;
 				padding-left: 30px;
 			}
+			/*侧边栏*/
 			.sidebarcontroler{
 				position: fixed;
 				right: 50px;
 				bottom:50px;
-				z-index: 999;
+				z-index: 555;
 			}
 			.sidebarcontroler span{
 				font-size: 25px;
 			}
-			.mainsidebar{
+			#sele{
 				display: none;
-				width: 0px;
+			}
+			.mainsidebar{
+				width: 400px;
 				background-color: dimgrey;
-			    position: absolute;
+			    position: fixed;
 			    top: 0px;
 			    bottom: 0px;
-			    right: 0px;
+			    right: -400px;
+			    transition: all 0.8s ease-in-out;
+			}
+			#sele:checked~.mainsidebar{
+				right: 0px;
+				transition: all 1s ease-in-out;
 			}
 			.userinfo{
 				height: 500px;
@@ -145,4 +170,47 @@
 			}
 			.item-count div:last-child{
 				border-right: none;
+			}
+			.selector{
+				margin-top: 10%;
+				margin-left: 30%;
+				display: flex;
+				flex-direction: row;
+				width:300px;
+				color: rgba(122,146,90,1);
+			}
+			.selector>li{
+				width: 100px;
+			}
+			.selector>li>span:hover{
+				text-decoration: none;
+				color: wheat;
+				cursor:pointer;
+				background-color:rgb(195,195,195) ;
+			}
+			/*框架*/
+			.article{
+				margin-left: 20%;
+				width: 73%;
+				font: "微软雅黑" 100 14px;
+			}
+			.page-header h1{
+				overflow: hidden;
+			}
+			/*文章*/
+			.footer{
+				position: relative;
+				bottom: 0;
+				width: 100%;
+				height: 75px;
+				background-color: gainsboro;
+				margin-top: 50px;
+			}
+			.footera{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 75px;
+				background-color: gainsboro;
+				margin-top: 50px;
 			}
