@@ -1,5 +1,10 @@
 package com.yang.blog.utils;
 
+import java.lang.reflect.Field;
+
+import com.yang.blog.Exception.ModelTypeException;
+import com.yang.blog.annotation.Varchar;
+
 /**
  * @Title: common.java
  * @Prject: sb-blog
@@ -12,15 +17,17 @@ package com.yang.blog.utils;
 public class common {
 	/**
 	 * 截取0~length-1
+	 * 
 	 * @param content
 	 * @return
 	 */
 	public static String substrStringExceptLastOne(String content) {
 		return content.substring(0, content.length() - 1);
 	}
-	
+
 	/**
 	 * 首字母大写
+	 * 
 	 * @param s
 	 * @return
 	 */
@@ -29,5 +36,28 @@ public class common {
 			return s;
 		else
 			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+	}
+
+	private void typeMapper(Field field, Object obj) throws Exception {
+		String type = field.getType().getName();
+		String dbType = "";
+		if (type.equals("java.lang.String")) {
+			Varchar Varchar = (Varchar)field.getAnnotation(Varchar.class);
+			dbType="varchar("+Varchar.Length()+")";
+		} else if (type.equals("int") || type.equals("java.lang.Integer")) {
+			dbType="int";
+		} else if (type.equals("long") || type.equals("java.lang.Long")) {
+			dbType="int";
+		} else if (type.equals("boolean") || type.equals("java.lang.Boolean")) {
+			dbType = "tinyint(1)";
+		} else if (type.equals("java.util.Date")) {
+			dbType = "date";
+		} else if(type.equals("java.util.List")||type.equals("List")){
+			throw new ModelTypeException("不允许的类型");
+		}
+		else {
+			dbType = "varchar(255)";
+		}
+
 	}
 }

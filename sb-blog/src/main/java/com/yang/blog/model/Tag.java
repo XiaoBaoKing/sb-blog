@@ -1,4 +1,8 @@
 package com.yang.blog.model;
+
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**  
  * @Title: Tag.java
  * @Prject: sb-blog
@@ -10,7 +14,9 @@ package com.yang.blog.model;
  */
 public class Tag {
 	private Integer tag_id;
+	@Varchar(Length=50)
 	private String name;
+	@Id
 	private Integer artic_id;
 	/**
 	 * @return the tag_id

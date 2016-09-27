@@ -12,7 +12,7 @@ import java.util.List;
  * @date: 2016年9月14日 上午9:55:56
  * @version: V1.0
  */
-public interface IBaseDao<M extends Serializable, PK extends Serializable> {
+public interface IBaseDao<M extends Serializable> {
 	public void save(M model) throws Exception;
 
 	public void saveOrUpdate(M model) throws Exception;
@@ -21,13 +21,15 @@ public interface IBaseDao<M extends Serializable, PK extends Serializable> {
 
 	public void merge(M model) throws Exception;
 
-	public void delete(PK id) throws Exception;
+	public void delete() throws Exception;
 
-	public M get(PK id) throws Exception;
+	public M get() throws Exception;
 
 	public int countAll() throws Exception;
 
 	public List<M> listAll() throws Exception;
 
 	public List<M> listAll(int pn, int pageSize) throws Exception;
+	
+	public void create() throws Exception;
 }

@@ -2,6 +2,9 @@ package com.yang.blog.model;
 
 import java.util.List;
 
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**
  * @Title: Permission.java
  * @Prject: sb-blog
@@ -12,7 +15,9 @@ import java.util.List;
  * @version: V1.0
  */
 public class Permission extends BaseDao{
+	@Id
 	private Integer permission_id;
+	@Varchar(Length=50)
 	private String name;
 	private List<Menu> menu;
 	/**

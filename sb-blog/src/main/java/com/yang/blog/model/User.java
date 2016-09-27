@@ -3,6 +3,7 @@ package com.yang.blog.model;
 import java.util.Date;
 
 import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
 
 /**
  * @Title: user.java
@@ -16,8 +17,11 @@ import com.yang.blog.annotation.Id;
 public class User extends BaseDao {
 	@Id
 	private Integer user_id;
+	@Varchar(Length=50)
 	private String userName;
+	@Varchar(Length=50)
 	private String passWord;
+	@Varchar(Length=80)
 	private String Email;
 	private Date lastLoginTime;
 	private Date createTime;

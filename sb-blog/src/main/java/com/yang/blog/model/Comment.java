@@ -1,4 +1,8 @@
 package com.yang.blog.model;
+
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**  
  * @Title: Comment.java
  * @Prject: sb-blog
@@ -9,7 +13,9 @@ package com.yang.blog.model;
  * @version: V1.0  
  */
 public class Comment {
+	@Id
 	private Integer comment_id;
+	@Varchar(Length = 255)
 	private String content;
 	private Integer artic_id;
 	private Integer user_id;

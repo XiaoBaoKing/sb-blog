@@ -3,6 +3,9 @@ package com.yang.blog.model;
 import java.util.Date;
 import java.util.List;
 
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**
  * @Title: Artic.java
  * @Prject: sb-blog
@@ -13,8 +16,11 @@ import java.util.List;
  * @version: V1.0
  */
 public class Artic extends BaseDao {
+	@Id
 	private Integer artic_id;
+	@Varchar(Length=50)
 	private String title;
+	@Varchar(Length=255)
 	private String url;
 	private List<Tag> tag;
 	private Date lastModifyTime;

@@ -1,5 +1,8 @@
 package com.yang.blog.model;
 
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**
  * @Title: Menu.java
  * @Prject: sb-blog
@@ -10,7 +13,9 @@ package com.yang.blog.model;
  * @version: V1.0
  */
 public class Menu extends BaseDao {
+	@Varchar(Length=50)
 	private String name;
+	@Id
 	private Integer menu_id;
 	private Integer parentId;
 	private Integer level;

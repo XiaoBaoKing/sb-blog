@@ -1,4 +1,8 @@
 package com.yang.blog.model;
+
+import com.yang.blog.annotation.Id;
+import com.yang.blog.annotation.Varchar;
+
 /**  
  * @Title: SelectInfo.java
  * @Prject: sb-blog
@@ -9,7 +13,9 @@ package com.yang.blog.model;
  * @version: V1.0  
  */
 public class SelectInfo {
+	@Id
 	private Integer selectInfo_id;
+	@Varchar(Length=50)
 	private String name;
 	/**
 	 * @return the selectInfo_id
