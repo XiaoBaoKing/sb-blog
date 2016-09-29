@@ -155,19 +155,20 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public void create() throws Exception{
 		Map map = getSQLparam();
-		
-		String Sql = CREATE_SQL.replaceAll("TABLENAME", this.getClass().getSimpleName());
-				
+		String sql = CREATE_SQL.replaceAll("TABLENAME", this.getClass().getSimpleName()).replaceAll("", getCreateParam());
+		jdbcTemplate.execute(sql);
 	}
 	
-	private String getCreateParam(){
+	private String getCreateParam() throws Exception{
 		Field[] field = clazz.getDeclaredFields();
+		String retString="";
 		for (int i = 0; i < field.length; i++) {
-			if(field[i].getAnnotation(Id.class)!=null){
-				
-			}
+			if(field[i].getAnnotation(Id.class)!=null)
+				retString += field[i].getName()+" "+common.typeMapper(field[i]) +" not null primary key auto_increment ,";
+			else
+				retString += field[i].getName()+" "+common.typeMapper(field[i])+ " not null ,";
 		}
-		return "";
+		return common.substrStringExceptLastOne(retString);
 	}
 	/**
 	 * 获取SQL

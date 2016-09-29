@@ -38,7 +38,7 @@ public class common {
 			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
 	}
 
-	private void typeMapper(Field field, Object obj) throws Exception {
+	public static String  typeMapper(Field field) throws Exception {
 		String type = field.getType().getName();
 		String dbType = "";
 		if (type.equals("java.lang.String")) {
@@ -58,6 +58,6 @@ public class common {
 		else {
 			dbType = "varchar(255)";
 		}
-
+		return dbType;
 	}
 }
