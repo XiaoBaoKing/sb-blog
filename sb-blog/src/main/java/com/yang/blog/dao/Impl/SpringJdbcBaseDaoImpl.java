@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 
 import com.yang.blog.annotation.Id;
 import com.yang.blog.dao.IBaseDao;
+import com.yang.blog.model.enums.TypeEnum;
 import com.yang.blog.utils.common;
 
 /**
@@ -24,7 +25,7 @@ import com.yang.blog.utils.common;
  * @date: 2016年9月14日 上午10:00:01
  * @version: V1.0
  */
-public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBaseDao<M> {
+public abstract class SpringJdbcBaseDaoImpl<M>  implements IBaseDao<M> {
 	private static final String INSERT_SQL = "INSERT INTO TABLE(TABLE_VALUE) VALUES(VALUE)";
 	private static final String SELECT_SQL = "SELECT * FROM TABLE";
 	private static final String SELECT_PRARM_SQL = "SELECT * FROM TABLE WHERE PARAM";
@@ -33,10 +34,10 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	private static final String DELETE_SQL = "DELETE FROM TABLE WHERE PARAM";
 	private static final String SELECT_COUNT_SQL = "SELECT COUNT(*)  FROM TABLE";
 	private static final String CREATE_SQL = "CREATE TABELE TABLENAME (PARAM)";
-	private Class clazz = this.getClass();
+	private Class<M> clazz;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,8 +45,9 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	 */
 	@Override
 	public void save(M model) throws Exception {
+		
 		Map map = getSQLparam();
-		String sql = INSERT_SQL.replaceAll("TABLE", this.getClass().getSimpleName())
+		String sql = INSERT_SQL.replaceAll("TABLE", clazz.getSimpleName())
 				.replaceAll("TABLE_VALUE", (String) map.get("valuesName"))
 				.replaceAll("VALUE", (String) map.get("values"));
 		jdbcTemplate.update(sql, List2Array((List<Object>) map.get("objParam")));
@@ -70,7 +72,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public void update(M model) throws Exception {
 		Map map = getSQLparam();
-		String sql = UPDATE_SQL.replaceAll("TABLE", this.getClass().getSimpleName())
+		String sql = UPDATE_SQL.replaceAll("TABLE", clazz.getSimpleName())
 				.replaceAll("VALUE", (String) map.get("updateValues"))
 				.replace("PARAM", (String) map.get("idName") + "=?");
 		jdbcTemplate.update(sql, List2Array((List<Object>) map.get("objParam")));
@@ -86,7 +88,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -95,10 +97,10 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public void delete() throws Exception {
 		Map map = getSQLparam();
-		String sql = DELETE_SQL.replaceAll("TABLE", this.getClass().getSimpleName()).replaceAll("PARAM",
+		String sql = DELETE_SQL.replaceAll("TABLE",clazz.getSimpleName()).replaceAll("PARAM",
 				(String) map.get("idName") + "=?");
 		jdbcTemplate.update(sql, map.get("idObj"));
-
+			
 	}
 
 	/*
@@ -109,7 +111,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public M get() throws Exception {
 		Map map = getSQLparam();
-		String sql = SELECT_PRARM_SQL.replaceAll("TABLE", this.getClass().getSimpleName()).replaceAll("PARAM",
+		String sql = SELECT_PRARM_SQL.replaceAll("TABLE", clazz.getSimpleName()).replaceAll("PARAM",
 				(String) map.get("idName") + "=?");
 		return (M) jdbcTemplate.queryForObject(sql, ParameterizedBeanPropertyRowMapper.newInstance(this.getClass()),
 				map.get("idObj"));
@@ -123,7 +125,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public int countAll() throws Exception {
 		// Map map = getSQLparam();
-		String sql = SELECT_COUNT_SQL.replaceAll("TABLE", this.getClass().getSimpleName());
+		String sql = SELECT_COUNT_SQL.replaceAll("TABLE", clazz.getSimpleName());
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -135,7 +137,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public List<M> listAll() throws Exception {
 		Map map = getSQLparam();
-		String sql = SELECT_SQL.replaceAll("TABLE", this.getClass().getSimpleName());
+		String sql = SELECT_SQL.replaceAll("TABLE", clazz.getSimpleName());
 		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(this.getClass()));
 	}
 
@@ -147,7 +149,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public List<M> listAll(int pn, int pageSize) throws Exception {
 		Map map = getSQLparam();
-		String sql = SELECT_PRARM_LIMIT_SQL.replaceAll("TABLE", this.getClass().getSimpleName()).replaceAll("PARAM",
+		String sql = SELECT_PRARM_LIMIT_SQL.replaceAll("TABLE",clazz.getSimpleName()).replaceAll("PARAM",
 				"?,?");
 		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(this.getClass()),
 				new Object[] { pn, pageSize });
@@ -155,7 +157,7 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	@Override
 	public void create() throws Exception{
 		Map map = getSQLparam();
-		String sql = CREATE_SQL.replaceAll("TABLENAME", this.getClass().getSimpleName()).replaceAll("", getCreateParam());
+		String sql = CREATE_SQL.replaceAll("TABLENAME",clazz.getSimpleName()).replaceAll("", getCreateParam());
 		jdbcTemplate.execute(sql);
 	}
 	
@@ -170,6 +172,11 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 		}
 		return common.substrStringExceptLastOne(retString);
 	}
+	
+	private Map getSQLparamName(Object obj) throws Exception{
+		Map<String, Object> sqlParam = new HashMap<>();
+		return sqlParam;
+	}
 	/**
 	 * 获取SQL
 	 * 
@@ -178,6 +185,8 @@ public abstract class SpringJdbcBaseDao<M extends Serializable> implements IBase
 	 */
 	private Map getSQLparam() throws Exception {
 		Map<String, Object> sqlParam = new HashMap<>();
+		
+		
 		Field[] field = clazz.getDeclaredFields();
 		List<Object> obj = new ArrayList<>();
 		Object idObj = new Object();

@@ -12,7 +12,7 @@ import java.util.List;
  * @date: 2016年9月14日 上午9:55:56
  * @version: V1.0
  */
-public interface IBaseDao<M extends Serializable> {
+public interface IBaseDao<M> {
 	public void save(M model) throws Exception;
 
 	public void saveOrUpdate(M model) throws Exception;

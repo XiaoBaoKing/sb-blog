@@ -13,6 +13,6 @@ import com.yang.blog.model.User;
  * @date: 2016年9月13日 下午6:19:06
  * @version: V1.0
  */
-public interface IUserDao {
+public interface IUserDao extends IBaseDao<User>{
 
 }
