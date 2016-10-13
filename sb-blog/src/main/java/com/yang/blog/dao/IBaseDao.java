@@ -23,7 +23,7 @@ public interface IBaseDao<M> {
 
 	public void delete() throws Exception;
 
-	public M get() throws Exception;
+	M get(M model) throws Exception;
 
 	public int countAll() throws Exception;
 
@@ -32,4 +32,7 @@ public interface IBaseDao<M> {
 	public List<M> listAll(int pn, int pageSize) throws Exception;
 	
 	public void create() throws Exception;
+
+
+	
 }
