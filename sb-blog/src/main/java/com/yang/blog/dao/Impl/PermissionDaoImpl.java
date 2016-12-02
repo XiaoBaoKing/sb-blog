@@ -1,5 +1,7 @@
 package com.yang.blog.dao.Impl;
 
+import org.springframework.stereotype.Repository;
+
 import com.yang.blog.dao.IPermissionDao;
 import com.yang.blog.model.Permission;
 
@@ -12,6 +14,8 @@ import com.yang.blog.model.Permission;
  * @date: 2016年10月13日 下午4:48:13
  * @version: V1.0  
  */
-public class PermissionDaoImpl extends SpringJdbcBaseDaoImpl<Permission> implements IPermissionDao{
+@Repository
+public class PermissionDaoImpl extends SpringJdbcBaseDaoImpl<Permission> implements IPermissionDao
+{
 
 }

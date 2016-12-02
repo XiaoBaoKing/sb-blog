@@ -1,5 +1,7 @@
 package com.yang.blog.dao.Impl;
 
+import org.springframework.stereotype.Repository;
+
 import com.yang.blog.dao.ISelectInfoDao;
 import com.yang.blog.model.SelectInfo;
 
@@ -12,6 +14,7 @@ import com.yang.blog.model.SelectInfo;
  * @date: 2016年10月13日 下午4:49:36
  * @version: V1.0  
  */
+@Repository
 public class SelectInfoDaoImpl extends SpringJdbcBaseDaoImpl<SelectInfo> implements ISelectInfoDao{
 
 }

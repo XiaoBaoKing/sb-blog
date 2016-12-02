@@ -1,18 +1,17 @@
-package com.yang.blog.dao;
+package com.yang.blog.service;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Title: IBaseDao.java
+ * @Title: IBaseService.java
  * @Prject: sb-blog
- * @Package: com.yang.blog.dao
+ * @Package: com.yang.blog.service
  * @Description: TODO
  * @author: Sue2Yang
- * @date: 2016年9月14日 上午9:55:56
+ * @date: 2016年12月2日 下午3:04:58
  * @version: V1.0
  */
-public interface IBaseDao<M> {
+public interface IBaseService<M> {
 	public void save(M model) throws Exception;
 
 	public void saveOrUpdate(M model) throws Exception;
@@ -30,9 +29,4 @@ public interface IBaseDao<M> {
 	public List<M> listAll() throws Exception;
 
 	public List<M> listAll(int pn, int pageSize) throws Exception;
-	
-	public void create() throws Exception;
-
-
-	
 }

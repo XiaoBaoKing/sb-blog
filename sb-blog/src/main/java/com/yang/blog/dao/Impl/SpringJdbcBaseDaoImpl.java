@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.yang.blog.annotation.Id;
 import com.yang.blog.dao.IBaseDao;
@@ -26,15 +27,16 @@ import com.yang.blog.utils.common;
  * @date: 2016年9月14日 上午10:00:01
  * @version: V1.0
  */
-public abstract class SpringJdbcBaseDaoImpl<M>{
-	private static final String INSERT_SQL = "INSERT INTO TABLE(TABLE_VALUE) VALUES(VALUE)";
-	private static final String SELECT_SQL = "SELECT * FROM TABLE";
-	private static final String SELECT_PRARM_SQL = "SELECT * FROM TABLE WHERE PARAM";
-	private static final String SELECT_PRARM_LIMIT_SQL = "SELECT * FROM TABLE LIMIT PARAM";
-	private static final String UPDATE_SQL = "UPDATE TABLE SET VALUE WHERE PARAM";
-	private static final String DELETE_SQL = "DELETE FROM TABLE WHERE PARAM";
-	private static final String SELECT_COUNT_SQL = "SELECT COUNT(*)  FROM TABLE";
-	private static final String CREATE_SQL = "CREATE TABLE TABLENAME (PARAM)";
+@Repository
+public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
+	private static final String INSERT_SQL = "INSERT INTO `TABLE`(TABLE_VALUE) VALUES(VALUE)";
+	private static final String SELECT_SQL = "SELECT * FROM `TABLE`";
+	private static final String SELECT_PRARM_SQL = "SELECT * FROM `TABLE` WHERE PARAM";
+	private static final String SELECT_PRARM_LIMIT_SQL = "SELECT * FROM `TABLE` LIMIT PARAM";
+	private static final String UPDATE_SQL = "UPDATE `TABLE` SET VALUE WHERE PARAM";
+	private static final String DELETE_SQL = "DELETE FROM `TABLE` WHERE PARAM";
+	private static final String SELECT_COUNT_SQL = "SELECT COUNT(*)  FROM `TABLE`";
+	private static final String CREATE_SQL = "CREATE TABLE if not exists `TABLENAME` (PARAM)";
 	private Class<M> clazz ;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -99,7 +101,7 @@ public abstract class SpringJdbcBaseDaoImpl<M>{
 	 * 
 	 * @see com.yang.blog.dao.IBaseDao#delete(java.io.Serializable)
 	 */
-	public void delete() throws Exception {
+	public void delete(M model) throws Exception {
 		Map map = getSQLparam();
 		String sql = DELETE_SQL.replaceAll("TABLE", clazz.getSimpleName()).replaceAll("PARAM",
 				(String) map.get("idName") + "=?");
@@ -167,8 +169,14 @@ public abstract class SpringJdbcBaseDaoImpl<M>{
 			if (field[i].getAnnotation(Id.class) != null)
 				retString += field[i].getName() + " " + common.typeMapper(field[i])
 						+ " not null primary key auto_increment ,";
-			else
-				retString += field[i].getName() + " " + common.typeMapper(field[i]) + " not null ,";
+			else{
+				try {
+					retString += field[i].getName() + " " + common.typeMapper(field[i]) + " not null ,";
+				} catch (Exception e) {
+					//TODO info();
+				}
+			}
+				
 		}
 		return common.substrStringExceptLastOne(retString);
 	}
