@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/Zertu/sb-blog/issues"
   },
-  "homepage": "https://github.com/Zertu/sb-blog#readme"
+  "homepage": "https://github.com/Zertu/sb-blog#readme",
+  "devDependencies": {
+    "babel-loader": "^6.2.8",
+    "css-loader": "^0.26.0",
+    "file-loader": "^0.9.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3"
+  }
 }
