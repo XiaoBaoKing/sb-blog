@@ -17,12 +17,14 @@ import com.yang.blog.annotation.Varchar;
 public class User extends BaseDao {
 	@Id
 	private Integer user_id;
-	@Varchar(Length=50)
+	@Varchar(Length = 50)
 	private String userName;
-	@Varchar(Length=50)
+	@Varchar(Length = 50)
 	private String passWord;
-	@Varchar(Length=80)
+	@Varchar(Length = 80)
 	private String Email;
+	@Varchar(Length = 255)
+	private String userImg;
 	private Date lastLoginTime;
 	private Date createTime;
 	private Integer group_Id;
@@ -130,6 +132,20 @@ public class User extends BaseDao {
 	 */
 	public void setGroup_Id(int group_Id) {
 		this.group_Id = group_Id;
+	}
+
+	/**
+	 * @return the userImg
+	 */
+	public String getUserImg() {
+		return userImg;
+	}
+
+	/**
+	 * @param userImg the userImg to set
+	 */
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
 	}
 
 }

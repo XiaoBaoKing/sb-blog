@@ -27,7 +27,7 @@ import com.yang.blog.utils.common;
  * @date: 2016年9月14日 上午10:00:01
  * @version: V1.0
  */
-@Repository
+
 public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 	private static final String INSERT_SQL = "INSERT INTO `TABLE`(TABLE_VALUE) VALUES(VALUE)";
 	private static final String SELECT_SQL = "SELECT * FROM `TABLE`";
@@ -246,7 +246,7 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 		valuesName = common.substrStringExceptLastOne(valuesName);
 		values = common.substrStringExceptLastOne(values);
 		updateValues = common.substrStringExceptLastOne(updateValues);
-	
+
 		sqlParam.put("valuesName", valuesName);
 		sqlParam.put("values", values);
 		sqlParam.put("updateValues", updateValues);

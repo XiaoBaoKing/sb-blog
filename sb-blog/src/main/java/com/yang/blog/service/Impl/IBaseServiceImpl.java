@@ -17,7 +17,7 @@ import com.yang.blog.service.IBaseService;
  * @version: V1.0
  */
 public  class IBaseServiceImpl<M> implements IBaseService<M> {
-	@Resource
+
 	SpringJdbcBaseDaoImpl SpringJdbcBaseDaoImpl;
 	/*
 	 * (non-Javadoc)

@@ -1,7 +1,10 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.Artic;
 import com.yang.blog.service.IArticService;
 
@@ -16,5 +19,5 @@ import com.yang.blog.service.IArticService;
  */
 @Service
 public class IArticServiceImpl extends IBaseServiceImpl<Artic> implements IArticService{
-
+	SpringJdbcBaseDaoImpl SpringJdbcBaseDaoImpl;
 }
