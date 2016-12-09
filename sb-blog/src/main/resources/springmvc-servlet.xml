@@ -16,9 +16,7 @@
 	<mvc:annotation-driven />
 	
 	<!-- configure the InternalResourceViewResolver -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		id="internalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
 		<!-- 前缀 -->
 		<property name="prefix" value="/WEB-INF/web/" />
 		<!-- 后缀 -->

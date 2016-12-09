@@ -1,7 +1,11 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.IGroupDao;
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.Group;
 import com.yang.blog.service.IGroupService;
 
@@ -16,5 +20,8 @@ import com.yang.blog.service.IGroupService;
  */
 @Service
 public class IGroupServiceImpl extends IBaseServiceImpl<Group> implements IGroupService{
-
+	@Resource
+	IGroupDao iGroupDao;
+	public IGroupServiceImpl() {
+	}
 }

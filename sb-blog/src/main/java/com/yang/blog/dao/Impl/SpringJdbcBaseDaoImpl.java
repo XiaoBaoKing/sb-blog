@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.yang.blog.annotation.Id;
 import com.yang.blog.dao.IBaseDao;
 import com.yang.blog.model.enums.TypeEnum;
-import com.yang.blog.utils.common;
+import com.yang.blog.utils.Common;
 
 /**
  * @Title: SpringJdbcBaseDao.java
@@ -28,7 +28,7 @@ import com.yang.blog.utils.common;
  * @version: V1.0
  */
 
-public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
+public class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M> {
 	private static final String INSERT_SQL = "INSERT INTO `TABLE`(TABLE_VALUE) VALUES(VALUE)";
 	private static final String SELECT_SQL = "SELECT * FROM `TABLE`";
 	private static final String SELECT_PRARM_SQL = "SELECT * FROM `TABLE` WHERE PARAM";
@@ -37,7 +37,9 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 	private static final String DELETE_SQL = "DELETE FROM `TABLE` WHERE PARAM";
 	private static final String SELECT_COUNT_SQL = "SELECT COUNT(*)  FROM `TABLE`";
 	private static final String CREATE_SQL = "CREATE TABLE if not exists `TABLENAME` (PARAM)";
-	private Class<M> clazz ;
+	private Class<M> clazz;
+	
+	Class<List<M>> clazzListM;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -45,17 +47,18 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 	 * 
 	 */
 	public SpringJdbcBaseDaoImpl() {
-		 ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();      
-		 clazz = (Class<M>) type.getActualTypeArguments()[0];
+		ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+		clazz = (Class<M>) type.getActualTypeArguments()[0];
+		clazzListM = (Class<List<M>>) type.getActualTypeArguments()[0];
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yang.blog.dao.IBaseDao#save(java.io.Serializable)
 	 */
 	public void save(M model) throws Exception {
-	
+
 		Map map = getSQLparamName(model);
 		String sql = INSERT_SQL.replaceAll("TABLE", clazz.getSimpleName())
 				.replaceAll("TABLE_VALUE", (String) map.get("valuesName"))
@@ -118,7 +121,7 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 		Map map = getSQLparamName(model);
 		String sql = SELECT_PRARM_SQL.replaceAll("TABLE", clazz.getSimpleName()).replaceAll("PARAM",
 				(String) map.get("idName") + "=?");
-		return (M) jdbcTemplate.queryForObject(sql, ParameterizedBeanPropertyRowMapper.newInstance(this.getClass()),
+		return (M) jdbcTemplate.queryForObject(sql, ParameterizedBeanPropertyRowMapper.newInstance(clazz),
 				map.get("idObj"));
 	}
 
@@ -141,7 +144,7 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 	public List<M> listAll() throws Exception {
 		Map map = getSQLparam();
 		String sql = SELECT_SQL.replaceAll("TABLE", clazz.getSimpleName());
-		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(this.getClass()));
+		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(clazzListM));
 	}
 
 	/*
@@ -152,12 +155,12 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 	public List<M> listAll(int pn, int pageSize) throws Exception {
 		Map map = getSQLparam();
 		String sql = SELECT_PRARM_LIMIT_SQL.replaceAll("TABLE", clazz.getSimpleName()).replaceAll("PARAM", "?,?");
-		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(clazz),
+		return (List<M>) jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(clazzListM),
 				new Object[] { pn, pageSize });
 	}
 
 	public void create() throws Exception {
-		//Map map = getSQLparam();
+		// Map map = getSQLparam();
 		String sql = CREATE_SQL.replaceAll("TABLENAME", clazz.getSimpleName()).replaceAll("PARAM", getCreateParam());
 		jdbcTemplate.execute(sql);
 	}
@@ -167,18 +170,18 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 		String retString = "";
 		for (int i = 0; i < field.length; i++) {
 			if (field[i].getAnnotation(Id.class) != null)
-				retString += field[i].getName() + " " + common.typeMapper(field[i])
+				retString += field[i].getName() + " " + Common.typeMapper(field[i])
 						+ " not null primary key auto_increment ,";
-			else{
+			else {
 				try {
-					retString += field[i].getName() + " " + common.typeMapper(field[i]) + " not null ,";
+					retString += field[i].getName() + " " + Common.typeMapper(field[i]) + " not null ,";
 				} catch (Exception e) {
-					//TODO info();
+					// TODO info();
 				}
 			}
-				
+
 		}
-		return common.substrStringExceptLastOne(retString);
+		return Common.substrStringExceptLastOne(retString);
 	}
 
 	private Map getSQLparamName(Object thisObj) throws Exception {
@@ -205,9 +208,9 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 			}
 			field[i].setAccessible(false);
 		}
-		valuesName = common.substrStringExceptLastOne(valuesName);
-		values = common.substrStringExceptLastOne(values);
-		updateValues = common.substrStringExceptLastOne(updateValues);
+		valuesName = Common.substrStringExceptLastOne(valuesName);
+		values = Common.substrStringExceptLastOne(values);
+		updateValues = Common.substrStringExceptLastOne(updateValues);
 		idObj = id;
 		sqlParam.put("valuesName", valuesName);
 		sqlParam.put("values", values);
@@ -243,9 +246,9 @@ public  class SpringJdbcBaseDaoImpl<M> implements IBaseDao<M>{
 				updateValues += field[i].getName() + "=?,";
 			}
 		}
-		valuesName = common.substrStringExceptLastOne(valuesName);
-		values = common.substrStringExceptLastOne(values);
-		updateValues = common.substrStringExceptLastOne(updateValues);
+		valuesName = Common.substrStringExceptLastOne(valuesName);
+		values = Common.substrStringExceptLastOne(values);
+		updateValues = Common.substrStringExceptLastOne(updateValues);
 
 		sqlParam.put("valuesName", valuesName);
 		sqlParam.put("values", values);

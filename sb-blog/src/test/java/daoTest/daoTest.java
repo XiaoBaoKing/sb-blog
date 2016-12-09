@@ -1,5 +1,7 @@
 package daoTest;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -7,48 +9,29 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yang.blog.dao.IArticDao;
-import com.yang.blog.dao.IGroupDao;
-import com.yang.blog.dao.IMenuDao;
-import com.yang.blog.dao.IPermissionDao;
-import com.yang.blog.dao.ISelectInfoDao;
-import com.yang.blog.dao.ITagDao;
-import com.yang.blog.dao.IUserDao;
+import com.yang.blog.model.User;
+import com.yang.blog.service.IUserService;
 
-/**  
+/**
  * @Title: daoTest.java
  * @Prject: sb-blog
- * @Package: 
+ * @Package:
  * @Description: TODO
- * @author: Sue2Yang 
+ * @author: Sue2Yang
  * @date: 2016年9月29日 下午11:05:55
- * @version: V1.0  
+ * @version: V1.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = "classpath:applicationContext.xml")  
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class daoTest {
 	@Resource
-	IUserDao iUserDao;
-	@Resource
-	ITagDao iTagDao;
-	@Resource
-	ISelectInfoDao iSelectInfoDao;
-	@Resource
-	IPermissionDao iPermissionDao;
-	@Resource
-	IMenuDao iMenuDao;
-	@Resource 
-	IGroupDao iGroupDao;
-	@Resource
-	IArticDao iArticDao;
+	IUserService user;
+
 	@Test
-	public void UserDao() throws Exception{
-		iUserDao.create();
-		iTagDao.create();
-		iSelectInfoDao.create();
-		iPermissionDao.create();
-		iMenuDao.create();
-		iGroupDao.create();
-		iArticDao.create();
+	public void UserDao() throws Exception {
+		List<User> u = user.listAll();
+		for (User user : u) {
+			System.out.println(user);
+		}
 	}
 }

@@ -1,7 +1,11 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.IMenuDao;
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.Menu;
 import com.yang.blog.service.IMenuService;
 
@@ -16,5 +20,8 @@ import com.yang.blog.service.IMenuService;
  */
 @Service
 public class IMenuServiceImpl extends IBaseServiceImpl<Menu> implements IMenuService{
-
+	@Resource
+	IMenuDao iMenuDao;
+	public IMenuServiceImpl() {
+	}
 }

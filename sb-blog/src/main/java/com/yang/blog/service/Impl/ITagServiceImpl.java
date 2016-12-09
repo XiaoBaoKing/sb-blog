@@ -1,7 +1,11 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.ITagDao;
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.SelectInfo;
 import com.yang.blog.model.Tag;
 import com.yang.blog.service.ISelectInfoService;
@@ -18,5 +22,8 @@ import com.yang.blog.service.ITagService;
  */
 @Service
 public class ITagServiceImpl extends IBaseServiceImpl<Tag> implements ITagService{
-
+	@Resource
+	ITagDao iTagDao;
+	public ITagServiceImpl() {
+	}
 }

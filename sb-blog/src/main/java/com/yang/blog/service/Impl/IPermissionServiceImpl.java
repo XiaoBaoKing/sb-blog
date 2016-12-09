@@ -1,7 +1,11 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.IPermissionDao;
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.Comment;
 import com.yang.blog.model.Permission;
 import com.yang.blog.service.ICommentService;
@@ -18,5 +22,8 @@ import com.yang.blog.service.IPermissionService;
  */
 @Service
 public class IPermissionServiceImpl extends IBaseServiceImpl<Permission> implements IPermissionService{
-
+	@Resource
+	IPermissionDao iPermissionDao;
+	public IPermissionServiceImpl() {
+	}
 }

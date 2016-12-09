@@ -1,7 +1,11 @@
 package com.yang.blog.service.Impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
+import com.yang.blog.dao.IUserDao;
+import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.SelectInfo;
 import com.yang.blog.model.User;
 import com.yang.blog.service.ISelectInfoService;
@@ -18,5 +22,8 @@ import com.yang.blog.service.IUserService;
  */
 @Service
 public class IUserServiceImpl extends IBaseServiceImpl<User> implements IUserService{
-
+	@Resource
+	IUserDao iUserDao;
+	public IUserServiceImpl() {
+	}
 }

@@ -2,10 +2,11 @@ package com.yang.blog.service.Impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import com.yang.blog.Lifecycle.SpringContextHolder;
+import com.yang.blog.dao.IBaseDao;
 import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.service.IBaseService;
+import com.yang.blog.utils.Common;
 
 /**
  * @Title: IBaseServiceImpl.java
@@ -17,16 +18,24 @@ import com.yang.blog.service.IBaseService;
  * @version: V1.0
  */
 public  class IBaseServiceImpl<M> implements IBaseService<M> {
-
-	SpringJdbcBaseDaoImpl SpringJdbcBaseDaoImpl;
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yang.blog.service.IBaseService#save(java.lang.Object)
 	 */
+	static String BeanName ;
+	IBaseDao iBaseDao ;
+	public IBaseServiceImpl(){
+		String tempName = this.getClass().getSimpleName();
+		BeanName =tempName.substring(1,tempName.indexOf("ServiceImpl")) ;
+		BeanName = Common.toLowerCaseFirstOne(BeanName);
+		iBaseDao = (IBaseDao<M>) SpringContextHolder.getBean(BeanName+"DaoImpl");
+	}
+	
 	@Override
 	public void save(M model) throws Exception {
-		SpringJdbcBaseDaoImpl.save(model);
+		iBaseDao.save(model);
 	}
 
 	/*
@@ -36,7 +45,8 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public void saveOrUpdate(M model) throws Exception {
-		SpringJdbcBaseDaoImpl.saveOrUpdate(model);
+		iBaseDao.saveOrUpdate(model);
+	
 	}
 
 	/*
@@ -46,7 +56,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public void update(M model) throws Exception {
-		SpringJdbcBaseDaoImpl.update(model);
+		iBaseDao.update(model);
 	}
 
 	/*
@@ -56,7 +66,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public void merge(M model) throws Exception {
-		SpringJdbcBaseDaoImpl.merge(model);
+		iBaseDao.merge(model);
 	}
 
 	/*
@@ -66,7 +76,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public void delete(M model) throws Exception {
-		SpringJdbcBaseDaoImpl.delete(model);
+		iBaseDao.delete(model);
 	}
 
 	/*
@@ -76,8 +86,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public M get(M model) throws Exception {
-		return (M) SpringJdbcBaseDaoImpl.get(model);
-		
+		return (M) iBaseDao.get(model);
 	}
 
 	/*
@@ -87,7 +96,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public int countAll() throws Exception {
-		return SpringJdbcBaseDaoImpl.countAll();
+		return iBaseDao.countAll();
 	}
 
 	/*
@@ -97,7 +106,9 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public List<M> listAll() throws Exception {
-		return SpringJdbcBaseDaoImpl.listAll();
+		
+		System.out.println();
+		return iBaseDao.listAll();
 	}
 
 	/*
@@ -107,7 +118,7 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	@Override
 	public List<M> listAll(int pn, int pageSize) throws Exception {
-		return SpringJdbcBaseDaoImpl.listAll(pn, pageSize);
+		return iBaseDao.listAll(pn, pageSize);
 	}
 
 }

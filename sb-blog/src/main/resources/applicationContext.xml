@@ -65,11 +65,13 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 			<value>false</value>
 		</property>
 	</bean>
-	
+
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<context:component-scan base-package="com.yang.blog.dao.*"/>
+	<bean class="com.yang.blog.Lifecycle.SpringContextHolder" />  
+	<context:component-scan base-package="com.yang.blog.*"/>
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 	<context:annotation-config />
+	
 </beans>
