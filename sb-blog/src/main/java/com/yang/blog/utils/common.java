@@ -14,7 +14,7 @@ import com.yang.blog.annotation.Varchar;
  * @date: 2016年9月20日 下午9:21:17
  * @version: V1.0
  */
-public class common {
+public class Common {
 	/**
 	 * 截取0~length-1
 	 * 
@@ -36,6 +36,18 @@ public class common {
 			return s;
 		else
 			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+	}
+	/**
+	 * 首字母小写
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String toLowerCaseFirstOne(String s) {
+		if (Character.isLowerCase(s.charAt(0)))
+			return s;
+		else
+			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
 	}
 
 	public static String  typeMapper(Field field) throws Exception {
