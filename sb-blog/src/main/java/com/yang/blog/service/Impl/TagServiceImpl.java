@@ -4,26 +4,26 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.yang.blog.dao.IUserDao;
+import com.yang.blog.dao.ITagDao;
 import com.yang.blog.dao.Impl.SpringJdbcBaseDaoImpl;
 import com.yang.blog.model.SelectInfo;
-import com.yang.blog.model.User;
+import com.yang.blog.model.Tag;
 import com.yang.blog.service.ISelectInfoService;
-import com.yang.blog.service.IUserService;
+import com.yang.blog.service.ITagService;
 
 /**  
- * @Title: IUserService.java
+ * @Title: ITagServiceImpl.java
  * @Prject: sb-blog
  * @Package: com.yang.blog.service.Impl
  * @Description: TODO
  * @author: Sue2Yang 
- * @date: 2016年12月2日 下午4:11:20
+ * @date: 2016年12月2日 下午4:11:07
  * @version: V1.0  
  */
 @Service
-public class IUserServiceImpl extends IBaseServiceImpl<User> implements IUserService{
+public class TagServiceImpl extends BaseServiceImpl<Tag> implements ITagService{
 	@Resource
-	IUserDao iUserDao;
-	public IUserServiceImpl() {
+	ITagDao iTagDao;
+	public TagServiceImpl() {
 	}
 }

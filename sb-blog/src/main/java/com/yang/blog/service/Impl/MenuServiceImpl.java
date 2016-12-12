@@ -19,9 +19,9 @@ import com.yang.blog.service.IMenuService;
  * @version: V1.0  
  */
 @Service
-public class IMenuServiceImpl extends IBaseServiceImpl<Menu> implements IMenuService{
+public class MenuServiceImpl extends BaseServiceImpl<Menu> implements IMenuService{
 	@Resource
 	IMenuDao iMenuDao;
-	public IMenuServiceImpl() {
+	public MenuServiceImpl() {
 	}
 }

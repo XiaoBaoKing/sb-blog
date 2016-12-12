@@ -3,6 +3,8 @@ package com.yang.blog.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yang.blog.annotation.Auth;
+
 /**
  * @Title: helloWorld.java
  * @Prject: sb-blog
@@ -12,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date: 2016年12月2日 下午8:28:07
  * @version: V1.0
  */
-@Controller()
+@Controller
 public class helloWorld {
 	@RequestMapping("/hello")
+	@Auth
 	public String hello() {
 		return "hello";
 	}

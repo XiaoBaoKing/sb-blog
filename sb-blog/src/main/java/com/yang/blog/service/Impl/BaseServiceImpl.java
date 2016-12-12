@@ -17,7 +17,7 @@ import com.yang.blog.utils.Common;
  * @date: 2016年12月2日 下午3:12:28
  * @version: V1.0
  */
-public  class IBaseServiceImpl<M> implements IBaseService<M> {
+public  class BaseServiceImpl<M> implements IBaseService<M> {
 	
 	/*
 	 * (non-Javadoc)
@@ -26,9 +26,9 @@ public  class IBaseServiceImpl<M> implements IBaseService<M> {
 	 */
 	static String BeanName ;
 	IBaseDao iBaseDao ;
-	public IBaseServiceImpl(){
+	public BaseServiceImpl(){
 		String tempName = this.getClass().getSimpleName();
-		BeanName =tempName.substring(1,tempName.indexOf("ServiceImpl")) ;
+		BeanName =tempName.substring(0,tempName.indexOf("ServiceImpl")) ;
 		BeanName = Common.toLowerCaseFirstOne(BeanName);
 		iBaseDao = (IBaseDao<M>) SpringContextHolder.getBean(BeanName+"DaoImpl");
 	}

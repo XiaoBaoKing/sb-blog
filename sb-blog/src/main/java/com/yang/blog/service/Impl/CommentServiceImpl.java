@@ -19,9 +19,9 @@ import com.yang.blog.service.ICommentService;
  * @version: V1.0  
  */
 
-public class ICommentServiceImpl extends IBaseServiceImpl<Comment> implements ICommentService{
+public class CommentServiceImpl extends BaseServiceImpl<Comment> implements ICommentService{
 	@Resource
 	ICommentDao iCommentDao;
-	public ICommentServiceImpl() {
+	public CommentServiceImpl() {
 	}
 }

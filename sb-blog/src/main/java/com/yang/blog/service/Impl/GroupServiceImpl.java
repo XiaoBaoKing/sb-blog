@@ -19,9 +19,9 @@ import com.yang.blog.service.IGroupService;
  * @version: V1.0  
  */
 @Service
-public class IGroupServiceImpl extends IBaseServiceImpl<Group> implements IGroupService{
+public class GroupServiceImpl extends BaseServiceImpl<Group> implements IGroupService{
 	@Resource
 	IGroupDao iGroupDao;
-	public IGroupServiceImpl() {
+	public GroupServiceImpl() {
 	}
 }

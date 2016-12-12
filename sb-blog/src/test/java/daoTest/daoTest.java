@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.yang.blog.model.User;
+import com.yang.blog.service.IArticService;
 import com.yang.blog.service.IUserService;
 
 /**
@@ -26,7 +27,8 @@ import com.yang.blog.service.IUserService;
 public class daoTest {
 	@Resource
 	IUserService user;
-
+	@Resource
+	IArticService service;
 	@Test
 	public void UserDao() throws Exception {
 		List<User> u = user.listAll();

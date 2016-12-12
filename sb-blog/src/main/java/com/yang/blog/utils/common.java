@@ -2,8 +2,8 @@ package com.yang.blog.utils;
 
 import java.lang.reflect.Field;
 
-import com.yang.blog.Exception.ModelTypeException;
 import com.yang.blog.annotation.Varchar;
+import com.yang.blog.exception.ModelTypeException;
 
 /**
  * @Title: common.java

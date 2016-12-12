@@ -19,10 +19,10 @@ import com.yang.blog.service.IArticService;
  * @version: V1.0
  */
 @Service
-public class IArticServiceImpl extends IBaseServiceImpl<Artic> implements IArticService {
+public class ArticServiceImpl extends BaseServiceImpl<Artic> implements IArticService {
 	@Resource
 	IArticDao iArticDao;
-	public IArticServiceImpl() {
+	public ArticServiceImpl() {
 		
 	}
 }
