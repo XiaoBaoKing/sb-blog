@@ -1,4 +1,4 @@
-package com.yang.blog.Lifecycle;
+package com.yang.blog.lifecycle;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
