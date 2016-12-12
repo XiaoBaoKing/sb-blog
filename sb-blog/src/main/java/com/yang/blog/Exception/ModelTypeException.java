@@ -1,4 +1,4 @@
-package com.yang.blog.Exception;
+package com.yang.blog.exception;
 /**  
  * @Title: ModelTypeException.java
  * @Prject: sb-blog
